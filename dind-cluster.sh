@@ -1250,13 +1250,16 @@ function dind::init {
   fi
 
   kubeadm_version="$(dind::kubeadm-version)"
-  echo "XXXX"
-  cluster/kubectl.sh version
+  echo "YYYY"
+  echo $(pwd)
+  ls -al
+  ls -al cluster/
+  cluster/kubectl.sh version 2>&1
   (cluster/kubectl.sh version --short 2>/dev/null || true) |
       grep Client |
       sed 's/^.*: v\([0-9.]*\).*/\1/'
   echo "kubeadm_version=${kubeadm_version}"
-  echo "XXXX"
+  echo "YYYY"
   case "${kubeadm_version}" in
     1\.9\.* | 1\.10\.*)
       template="1.10"
