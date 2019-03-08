@@ -1250,6 +1250,9 @@ function dind::init {
   fi
 
   kubeadm_version="$(dind::kubeadm-version)"
+  echo "XXXX"
+  echo "kubeadm_version=${kubeadm_version}"
+  echo "XXXX"
   case "${kubeadm_version}" in
     1\.9\.* | 1\.10\.*)
       template="1.10"
@@ -1297,6 +1300,7 @@ function dind::init {
       mgmt_cidr=${mgmt_net_cidrs[1]}
   fi
   local master_ip=$( dind::make-ip-from-cidr ${mgmt_cidr} 2 )
+
   docker exec -i "$master_name" bash <<EOF
 sed -e "s|{{ADV_ADDR}}|${master_ip}|" \
     -e "s|{{POD_SUBNET_DISABLE}}|${pod_subnet_disable}|" \
